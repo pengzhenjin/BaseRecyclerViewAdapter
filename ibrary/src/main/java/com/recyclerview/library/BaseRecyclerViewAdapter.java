@@ -2,6 +2,7 @@ package com.recyclerview.library;
 
 import android.content.Context;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -16,10 +17,10 @@ import java.util.List;
  */
 public abstract class BaseRecyclerViewAdapter<T, VH extends BaseRecyclerViewHolder> extends RecyclerView.Adapter<VH> {
 
-    public static final int TYPE_HEADER_VIEW  = 0x00000001;
-    public static final int TYPE_FOOTER_VIEW  = 0x00000002;
-    public static final int TYPE_LOADING_VIEW = 0x00000003;
-    public static final int TYPE_EMPTY_VIEW   = 0x00000004;
+    protected static final int TYPE_HEADER_VIEW  = 0x10000001;
+    protected static final int TYPE_FOOTER_VIEW  = 0x10000002;
+    protected static final int TYPE_LOADING_VIEW = 0x10000003;
+    protected static final int TYPE_EMPTY_VIEW   = 0x10000004;
 
     /**
      * 上下文
@@ -54,10 +55,10 @@ public abstract class BaseRecyclerViewAdapter<T, VH extends BaseRecyclerViewHold
     /**
      * 构造方法
      *
-     * @param layoutResId
+     * @param dataList
      */
-    public BaseRecyclerViewAdapter(int layoutResId) {
-        this(layoutResId, null);
+    public BaseRecyclerViewAdapter(List<T> dataList) {
+        this(0, dataList);
     }
 
     /**
@@ -67,7 +68,9 @@ public abstract class BaseRecyclerViewAdapter<T, VH extends BaseRecyclerViewHold
      * @param dataList
      */
     public BaseRecyclerViewAdapter(int layoutResId, List<T> dataList) {
-        this.mLayoutResId = layoutResId;
+        if (layoutResId != 0) {
+            this.mLayoutResId = layoutResId;
+        }
         this.mDataList = dataList == null ? new ArrayList<T>() : dataList;
     }
 
@@ -174,6 +177,7 @@ public abstract class BaseRecyclerViewAdapter<T, VH extends BaseRecyclerViewHold
      */
     public void addHeaderView(View headerView) {
         this.mHeaderView = headerView;
+        this.notifyItemInserted(0);
     }
 
     /**
@@ -183,6 +187,7 @@ public abstract class BaseRecyclerViewAdapter<T, VH extends BaseRecyclerViewHold
      */
     public void addFooterView(View footerView) {
         this.mFooterView = footerView;
+        this.notifyItemInserted(this.getItemCount());
     }
 
     /**
@@ -192,6 +197,7 @@ public abstract class BaseRecyclerViewAdapter<T, VH extends BaseRecyclerViewHold
      */
     public void removeHeaderView(View headerView) {
         this.mHeaderView = null;
+        this.notifyItemRemoved(0);
     }
 
     /**
@@ -201,6 +207,7 @@ public abstract class BaseRecyclerViewAdapter<T, VH extends BaseRecyclerViewHold
      */
     public void removeFooterView(View footerView) {
         this.mFooterView = null;
+        this.notifyItemRemoved(this.getItemCount());
     }
 
     /**
@@ -259,7 +266,7 @@ public abstract class BaseRecyclerViewAdapter<T, VH extends BaseRecyclerViewHold
 
     @Override
     public int getItemCount() {
-        return getHeaderViewCount() + this.mDataList.size() + this.getFooterViewCount();
+        return this.getHeaderViewCount() + this.mDataList.size() + this.getFooterViewCount();
     }
 
     @Override
@@ -270,6 +277,17 @@ public abstract class BaseRecyclerViewAdapter<T, VH extends BaseRecyclerViewHold
         if (this.isHasFooterView() && position == getItemCount() - 1) {
             return TYPE_FOOTER_VIEW;
         }
+        return this.getDefaultItemViewType(position);
+    }
+
+    /**
+     * 获取默认的item类型
+     *
+     * @param position
+     *
+     * @return
+     */
+    protected int getDefaultItemViewType(int position) {
         return super.getItemViewType(position);
     }
 
@@ -282,6 +300,7 @@ public abstract class BaseRecyclerViewAdapter<T, VH extends BaseRecyclerViewHold
     public VH onCreateViewHolder(ViewGroup parent, int viewType) {
         VH baseViewHolder = null;
         this.mContext = parent.getContext();
+        Log.i("viewType", "viewType：" + viewType);
         switch (viewType) {
             case TYPE_HEADER_VIEW:
                 baseViewHolder = this.createBaseViewHolder(this.mHeaderView);
@@ -290,7 +309,7 @@ public abstract class BaseRecyclerViewAdapter<T, VH extends BaseRecyclerViewHold
                 baseViewHolder = this.createBaseViewHolder(this.mFooterView);
                 break;
             default:
-                baseViewHolder = this.onCreateDefaultViewHolder(parent, viewType);
+                baseViewHolder = this.createDefaultViewHolder(parent, viewType);
                 this.initItemClickListener(parent, baseViewHolder, viewType);
         }
         return baseViewHolder;
@@ -330,7 +349,7 @@ public abstract class BaseRecyclerViewAdapter<T, VH extends BaseRecyclerViewHold
      *
      * @return
      */
-    protected VH onCreateDefaultViewHolder(ViewGroup parent, int viewType) {
+    protected VH createDefaultViewHolder(ViewGroup parent, int viewType) {
         return createBaseViewHolder(parent, this.mLayoutResId);
     }
 

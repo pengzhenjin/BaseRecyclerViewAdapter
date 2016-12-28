@@ -16,8 +16,8 @@ import java.util.ArrayList;
 
 public class MainActivity extends AppCompatActivity {
 
-    private static final Class<?>[] ACTIVITY = { AnimationActivity.class, MultipleItemActivity.class, HeaderAndFooterActivity.class, PullToRefreshActivity.class, SectionActivity.class, EmptyViewActivity.class, ItemDragAndSwipeActivity.class, ItemClickActivity.class, ExpandableActivity.class, DataBindingActivity.class };
-    private static final String[]   TITLE    = { "Animation", "MultipleItem", "HeaderAndFooter", "PullToRefresh", "Section", "EmptyView", "DragAndSwipe", "ItemClick", "ExpandableItem", "DataBinding" };
+    private static final Class<?>[] ACTIVITY = { HeaderAndFooterActivity.class, MultipleItemActivity.class, PullToRefreshActivity.class, SectionActivity.class, EmptyViewActivity.class, ItemDragAndSwipeActivity.class, ItemClickActivity.class, ExpandableActivity.class, DataBindingActivity.class };
+    private static final String[]   TITLE    = { "HeaderAndFooter", "MultipleItem", "PullToRefresh", "Section", "EmptyView", "DragAndSwipe", "ItemClick", "ExpandableItem", "DataBinding" };
     private static final int[]      IMG      = { R.mipmap.gv_animation, R.mipmap.gv_multipleltem, R.mipmap.gv_header_and_footer, R.mipmap.gv_pulltorefresh, R.mipmap.gv_section, R.mipmap.gv_empty, R.mipmap.gv_drag_and_swipe, R.mipmap.gv_item_click, R.mipmap.gv_expandable, R.mipmap.gv_databinding, };
 
     private ArrayList<MainItem> mDataList;
@@ -39,14 +39,13 @@ public class MainActivity extends AppCompatActivity {
 
     private void initAdapter() {
         BaseRecyclerViewAdapter mainAdapter = new MainAdapter(R.layout.item_main_list, this.mDataList);
-        View topView = getLayoutInflater().inflate(R.layout.top_view, null);
-        mainAdapter.addHeaderView(topView);
+        //View topView = getLayoutInflater().inflate(R.layout.top_view, null);
+        //mainAdapter.addHeaderView(topView);
         mainAdapter.setOnItemClickListener(new SimpleClickListener() {
             @Override
             public void onItemClick(View view, BaseRecyclerViewHolder viewHolder, int position) {
-                //Intent intent = new Intent(MainActivity.this, ACTIVITY[position]);
-                //startActivity(intent);
-                Toast.makeText(MainActivity.this, "点击了" + position, Toast.LENGTH_SHORT).show();
+                Intent intent = new Intent(MainActivity.this, ACTIVITY[position]);
+                startActivity(intent);
             }
         });
         this.mRecyclerView.setAdapter(mainAdapter);
