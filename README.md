@@ -1,0 +1,2 @@
+# BaseRecyclerViewAdapter
+通用的RecyclerView适配器
