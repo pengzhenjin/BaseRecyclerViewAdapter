@@ -23,7 +23,7 @@ public abstract class BaseMultiItemAdapter<T extends MultiItemEntity, VH extends
 
     @Override
     protected int getDefaultItemViewType(int position) {
-        T item = this.mDataList.get(position);
+        T item = super.mDataList.get(position);
         if (item != null) {
             return item.getItemType();
         }

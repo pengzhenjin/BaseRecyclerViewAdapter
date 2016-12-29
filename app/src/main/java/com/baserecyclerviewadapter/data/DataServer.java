@@ -16,7 +16,7 @@ import java.util.List;
 public class DataServer {
 
     private static final String HTTPS_AVATARS1_GITHUBUSERCONTENT_COM_LINK = "https://avatars1.githubusercontent.com/u/7698209?v=3&s=460";
-    private static final String CYM_CHAD                                  = "CymChad";
+    private static final String CONTENT                                   = "content";
 
     private DataServer() {
     }
@@ -51,24 +51,24 @@ public class DataServer {
 
     public static List<MySection> getSampleData() {
         List<MySection> list = new ArrayList<>();
-        list.add(new MySection(true, "Section 1", true));
-        list.add(new MySection(new Video(HTTPS_AVATARS1_GITHUBUSERCONTENT_COM_LINK, CYM_CHAD)));
-        list.add(new MySection(new Video(HTTPS_AVATARS1_GITHUBUSERCONTENT_COM_LINK, CYM_CHAD)));
-        list.add(new MySection(new Video(HTTPS_AVATARS1_GITHUBUSERCONTENT_COM_LINK, CYM_CHAD)));
-        list.add(new MySection(new Video(HTTPS_AVATARS1_GITHUBUSERCONTENT_COM_LINK, CYM_CHAD)));
-        list.add(new MySection(true, "Section 2", false));
-        list.add(new MySection(new Video(HTTPS_AVATARS1_GITHUBUSERCONTENT_COM_LINK, CYM_CHAD)));
-        list.add(new MySection(new Video(HTTPS_AVATARS1_GITHUBUSERCONTENT_COM_LINK, CYM_CHAD)));
-        list.add(new MySection(new Video(HTTPS_AVATARS1_GITHUBUSERCONTENT_COM_LINK, CYM_CHAD)));
-        list.add(new MySection(true, "Section 3", false));
-        list.add(new MySection(new Video(HTTPS_AVATARS1_GITHUBUSERCONTENT_COM_LINK, CYM_CHAD)));
-        list.add(new MySection(new Video(HTTPS_AVATARS1_GITHUBUSERCONTENT_COM_LINK, CYM_CHAD)));
-        list.add(new MySection(true, "Section 4", false));
-        list.add(new MySection(new Video(HTTPS_AVATARS1_GITHUBUSERCONTENT_COM_LINK, CYM_CHAD)));
-        list.add(new MySection(new Video(HTTPS_AVATARS1_GITHUBUSERCONTENT_COM_LINK, CYM_CHAD)));
-        list.add(new MySection(true, "Section 5", false));
-        list.add(new MySection(new Video(HTTPS_AVATARS1_GITHUBUSERCONTENT_COM_LINK, CYM_CHAD)));
-        list.add(new MySection(new Video(HTTPS_AVATARS1_GITHUBUSERCONTENT_COM_LINK, CYM_CHAD)));
+        list.add(new MySection(true, "Section 1"));
+        list.add(new MySection(new Video(HTTPS_AVATARS1_GITHUBUSERCONTENT_COM_LINK, "video 1")));
+        list.add(new MySection(new Video(HTTPS_AVATARS1_GITHUBUSERCONTENT_COM_LINK, "video 1")));
+        list.add(new MySection(new Video(HTTPS_AVATARS1_GITHUBUSERCONTENT_COM_LINK, "video 1")));
+        list.add(new MySection(new Video(HTTPS_AVATARS1_GITHUBUSERCONTENT_COM_LINK, "video 1")));
+        list.add(new MySection(true, "Section 2"));
+        list.add(new MySection(new Video(HTTPS_AVATARS1_GITHUBUSERCONTENT_COM_LINK, "video 2")));
+        list.add(new MySection(new Video(HTTPS_AVATARS1_GITHUBUSERCONTENT_COM_LINK, "video 2")));
+        list.add(new MySection(new Video(HTTPS_AVATARS1_GITHUBUSERCONTENT_COM_LINK, "video 2")));
+        list.add(new MySection(true, "Section 3"));
+        list.add(new MySection(new Video(HTTPS_AVATARS1_GITHUBUSERCONTENT_COM_LINK, "video 3")));
+        list.add(new MySection(new Video(HTTPS_AVATARS1_GITHUBUSERCONTENT_COM_LINK, "video 3")));
+        list.add(new MySection(true, "Section 4"));
+        list.add(new MySection(new Video(HTTPS_AVATARS1_GITHUBUSERCONTENT_COM_LINK, "video 4")));
+        list.add(new MySection(new Video(HTTPS_AVATARS1_GITHUBUSERCONTENT_COM_LINK, "video 4")));
+        list.add(new MySection(true, "Section 5"));
+        list.add(new MySection(new Video(HTTPS_AVATARS1_GITHUBUSERCONTENT_COM_LINK, "video 5")));
+        list.add(new MySection(new Video(HTTPS_AVATARS1_GITHUBUSERCONTENT_COM_LINK, "video 5")));
         return list;
     }
 
@@ -77,7 +77,7 @@ public class DataServer {
         for (int i = 0; i < 20; i++) {
             String str = HTTPS_AVATARS1_GITHUBUSERCONTENT_COM_LINK;
             if (i % 2 == 0) {
-                str = CYM_CHAD;
+                str = CONTENT;
             }
             list.add(str);
         }

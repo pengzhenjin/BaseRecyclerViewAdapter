@@ -7,19 +7,19 @@ package com.recyclerview.library.entity;
  * @date 2016-12-28
  */
 public abstract class SectionEntity<T> {
-    protected boolean isHeader;
-    protected T       t;
-    protected String  header;
+    public boolean isSection;    // 是否需要分组
+    public String  sectionName;  // 分组名称
+    public T       data;    // 分组内容
 
-    public SectionEntity(boolean isHeader, String header) {
-        this.isHeader = isHeader;
-        this.header = header;
-        this.t = null;
+    public SectionEntity(boolean isSection, String sectionName) {
+        this.isSection = isSection;
+        this.sectionName = sectionName;
+        this.data = null;
     }
 
-    public SectionEntity(T t) {
-        this.isHeader = false;
-        this.header = null;
-        this.t = t;
+    public SectionEntity(T data) {
+        this.isSection = false;
+        this.sectionName = null;
+        this.data = data;
     }
 }

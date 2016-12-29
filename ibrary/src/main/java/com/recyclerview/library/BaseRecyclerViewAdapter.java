@@ -2,6 +2,7 @@ package com.recyclerview.library;
 
 import android.content.Context;
 import android.support.v7.widget.RecyclerView;
+import android.support.v7.widget.StaggeredGridLayoutManager;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -432,5 +433,17 @@ public abstract class BaseRecyclerViewAdapter<T, VH extends BaseRecyclerViewHold
                 return false;
             }
         });
+    }
+
+    /**
+     * 设置StaggeredGridLayoutManager占满全格
+     *
+     * @param holder
+     */
+    protected void setFullSpan(RecyclerView.ViewHolder holder) {
+        if (holder.itemView.getLayoutParams() instanceof StaggeredGridLayoutManager.LayoutParams) {
+            StaggeredGridLayoutManager.LayoutParams params = (StaggeredGridLayoutManager.LayoutParams) holder.itemView.getLayoutParams();
+            params.setFullSpan(true);
+        }
     }
 }
